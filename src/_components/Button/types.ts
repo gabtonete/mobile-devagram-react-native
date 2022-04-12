@@ -1,7 +1,7 @@
 export interface IButton {
-    placeholder: string,
     onPress: () => void,
-    style?: any,
     disabled?: boolean,
+    placeholder: string,
+    style?: any,
     loading?: boolean
 }

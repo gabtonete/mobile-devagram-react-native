@@ -4,6 +4,7 @@ import AppLoading from 'expo-app-loading';
 import { Button } from './src/_components/Button';
 import { Input } from './src/_components/Input';
 import { useState } from 'react'
+import { UploadImage } from './src/_components/UploadImage';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -17,6 +18,7 @@ export default function App() {
   return (
     fontsLoaded ?
       <View style={styles.container}>
+        <UploadImage />
         <Button onPress={() => console.log("Lul")} placeholder="Clique aqui" loading={false} disabled={false} />
         <Input onChangeText={(e: string) => setEmail(e)} placeholder={"Digite seu email"} value={email}/>
       </View>

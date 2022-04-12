@@ -9,7 +9,7 @@ export const Button = (props : IButton) => {
             <TouchableOpacity 
                 onPress={props.onPress}
                 disabled={props.disabled}
-                style={props.disabled ? [styles.button, props.style, styles.buttonDisabled] : [styles.button, props.style]}
+                style={props.disabled ? [styles.button, props.style, styles.buttonDisabled] : [styles.button, props.style]} 
             >
                 {props.loading ?
                 
@@ -18,7 +18,7 @@ export const Button = (props : IButton) => {
                     color={colors.whiteColor}
                 />
                 :
-                <Text style={styles.text}>Login</Text>
+                <Text style={styles.text}>{props.placeholder}</Text>
             }
             </TouchableOpacity>
         </View>
