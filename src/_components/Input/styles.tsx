@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
         height: height/25,
         borderBottomColor: colors.primaryColor,
         borderBottomWidth: 1,
-        marginTop: height/20
+        marginTop: height * 0.03,
     },
     input: {
         width: width/1.4,
@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
         color: colors.grayColor02
     },
     row: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: "center"
     }
 })

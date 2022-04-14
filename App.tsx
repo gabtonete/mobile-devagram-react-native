@@ -1,10 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
 import { useFonts } from '@expo-google-fonts/inter';
 import AppLoading from 'expo-app-loading';
-import { Button } from './src/_components/Button';
-import { Input } from './src/_components/Input';
-import { useState } from 'react'
-import { UploadImage } from './src/_components/UploadImage';
+import { NavigationContainer } from '@react-navigation/native';
+import { Routes } from './src/_routes';
+
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -13,25 +11,12 @@ export default function App() {
     'biennaleLight': require('./assets/fonts/BiennaleLight.otf')
   });
 
-  const [email, setEmail] = useState<string>("");
-
   return (
     fontsLoaded ?
-      <View style={styles.container}>
-        <UploadImage />
-        <Button onPress={() => console.log("Lul")} placeholder="Clique aqui" loading={false} disabled={false} />
-        <Input onChangeText={(e: string) => setEmail(e)} placeholder={"Digite seu email"} value={email}/>
-      </View>
-    :
-    <AppLoading />
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
+
+      : <AppLoading />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

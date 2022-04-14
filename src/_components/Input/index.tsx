@@ -10,7 +10,6 @@ export const Input = (props: IInput) => {
                     {props.icon &&
                         <Image source={props.icon} />
                     }
-
                     <TextInput
                         placeholder={props.placeholder}
                         style={[styles.input, props.style]}
@@ -19,7 +18,6 @@ export const Input = (props: IInput) => {
                         onChangeText={props.onChangeText}
                         autoCapitalize="none"
                     ></TextInput>
-
                 </View>
             </View>
         </View>
