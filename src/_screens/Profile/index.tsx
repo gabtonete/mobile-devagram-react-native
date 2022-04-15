@@ -1,12 +1,12 @@
 import { Text, View } from 'react-native';
 import { Container } from '../../_components/Container';
 
-export const Home = () => {
+export const Profile = () => {
     return(
         <Container 
-            footerProps={{currentTab: 'Home'}}
+            footerProps={{currentTab: 'Profile'}}
         >
-            <Text>Home</Text>
+            <Text>Profile</Text>
         </Container>
     )
 }

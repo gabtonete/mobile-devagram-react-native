@@ -3,6 +3,13 @@ export interface ILogin {
     senha: string
 }
 
+export interface IRegister {
+    nome: string,
+    email: string,
+    senha: string,
+    avatar: any,
+}
+
 export interface IUser {
     id: string | null,
     name: string | null,

@@ -5,14 +5,14 @@ import { styles } from "./styles";
 export const Input = (props: IInput) => {
     return (
         <View>
-            <View style={styles.containerInput}>
+            <View style={[styles.containerInput, props.style]}>
                 <View style={styles.row}>
                     {props.icon &&
                         <Image source={props.icon} />
                     }
                     <TextInput
                         placeholder={props.placeholder}
-                        style={[styles.input, props.style]}
+                        style={[styles.input]}
                         secureTextEntry={props.secureTextEntry}
                         value={props.value}
                         onChangeText={props.onChangeText}

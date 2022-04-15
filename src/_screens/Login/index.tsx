@@ -13,6 +13,7 @@ import { ErroMessage } from '../../_components/ErroMessage';
 export const Login = () => {
     type navigationTypes = NativeStackNavigationProp<RootStackParamList, 'Login'>
     const navigation = useNavigation<navigationTypes>();
+    
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);

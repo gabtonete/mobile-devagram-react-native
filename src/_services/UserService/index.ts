@@ -8,6 +8,10 @@ export const login = async (body: ILogin) => {
     getUser();
 }
 
+export const register = async (body: FormData) => {
+    await devagramApiService.post('/cadastro', body, {"Content-Type": "multipart/form-data"});
+}
+
 const getUser = async () => {
     const { data }  = await devagramApiService.get('/usuario');
     await AsyncStorage.setItem('name', data.nome)

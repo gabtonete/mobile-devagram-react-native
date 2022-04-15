@@ -1,12 +1,12 @@
 import { Text, View } from 'react-native';
 import { Container } from '../../_components/Container';
 
-export const Home = () => {
+export const Post = () => {
     return(
         <Container 
-            footerProps={{currentTab: 'Home'}}
+            footerProps={{currentTab: 'Post'}}
         >
-            <Text>Home</Text>
+            <Text>Post</Text>
         </Container>
     )
 }

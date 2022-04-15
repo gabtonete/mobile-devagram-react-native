@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button } from '../../_components/Button';
 import { Input } from '../../_components/Input';
 import { useEffect, useState } from 'react'
@@ -8,7 +8,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../_routes/RootStackParams';
 import { validateConfirmPassword, validateEmail, validateName, validatePassword } from '../../_utils/validators';
-
+import * as userService from '../../_services/UserService';
+import { ErroMessage } from '../../_components/ErroMessage';
 
 export const Register = () => {
     type navigationTypes = NativeStackNavigationProp<RootStackParamList, 'Register'>
@@ -20,6 +21,8 @@ export const Register = () => {
     const [passwordValidation, setPasswordValidation] = useState<string>("");
     const [image, setImage] = useState<any>(null);
     const [isDisabled, setIsDisabled] = useState<boolean>(true);
+    const [isLoading, setLoading] = useState<boolean>(false);
+    const [erro, setErro] = useState<string>("");
 
     const formIsValid = () => {
         const nameIsValid = validateName(name);
@@ -28,6 +31,36 @@ export const Register = () => {
         const passwordValidationIsValid = validateConfirmPassword(password, passwordValidation);
 
         return nameIsValid && emailIsValid && passwordIsValid && passwordValidationIsValid
+    }
+
+    const onRegister = async () => {
+        try {
+            setErro("");
+            setLoading(true);
+            const body = new FormData();
+            body.append("nome", name);
+            body.append("email", email);
+            body.append("senha", password);
+
+            if(image) {
+                const file: any = {
+                    uri: image.uri,
+                    type: `image/${image.uri.split('/').pop().split('.').pop()}`,
+                    name: `image/${image.uri.split('/').pop()}`
+                }
+
+                body.append("file", file);
+            }
+
+            await userService.register(body);
+            await userService.login({ login: email, senha: password});
+            setLoading(false);
+            navigation.navigate('Home');
+        } catch (e: any) {
+            console.log("Erro:", e.response.data.erro);
+            setErro(e.response.data.erro);
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -57,6 +90,7 @@ export const Register = () => {
                 onChangeText={(e: string) => setEmail(e)}
                 placeholder={"example@example.com"}
                 value={email}
+                style={erro ? failStyle.failStyle : null}
                 failIcon={email === '' ? null
                     : validateEmail(email)
                         ? require('../../_assets/icons/correctsignal.png')
@@ -87,9 +121,12 @@ export const Register = () => {
                         : require('../../_assets/icons/errorsignal.png')
                 }
             />
+            {erro !== "" &&
+                <ErroMessage text={erro}/>
+            }
             <Button
-                onPress={() => formIsValid()}
-                placeholder="Cadastrar" loading={false}
+                onPress={() => onRegister()}
+                placeholder="Cadastrar" loading={isLoading}
                 disabled={isDisabled}
             />
             <View style={styles.containerWithAccount}>
@@ -101,3 +138,9 @@ export const Register = () => {
         </View>
     );
 }
+
+const failStyle = StyleSheet.create({
+    failStyle: {
+        borderBottomColor: "red"
+    }
+})
