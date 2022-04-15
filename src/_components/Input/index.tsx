@@ -18,6 +18,9 @@ export const Input = (props: IInput) => {
                         onChangeText={props.onChangeText}
                         autoCapitalize="none"
                     ></TextInput>
+                    {props.failIcon &&
+                        <Image style={styles.failIcon} source={props.failIcon} />
+                    }
                 </View>
             </View>
         </View>

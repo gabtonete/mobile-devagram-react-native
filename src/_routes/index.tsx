@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Login } from '../_screens/Login';
 import { Register } from '../_screens/Register';
+import { Home } from '../_screens/Home';
 
 
 export const Routes = () => {
@@ -12,6 +13,7 @@ export const Routes = () => {
         >
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
     )
 

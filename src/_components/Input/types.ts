@@ -6,5 +6,6 @@ export interface IInput {
     style?: any,
     secureTextEntry?: boolean,
     value: string,
+    failIcon?: any,
     onChangeText: (e: string) => void
 }

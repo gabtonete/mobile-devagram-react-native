@@ -22,5 +22,9 @@ export const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: "center"
+    },
+    failIcon: {
+        position: "absolute",
+        right: 10
     }
 })

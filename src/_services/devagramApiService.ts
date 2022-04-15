@@ -18,7 +18,6 @@ export const api = async(endpoint: string, method: Method, body?: any, newHeader
     }
 
     console.log(`Executando: ${URL}${endpoint}, metodo: ${method} body ${JSON.stringify(body)} headers ${JSON.stringify(headers)}`)
-
     return instance.request({
         url: endpoint,
         method: method,
