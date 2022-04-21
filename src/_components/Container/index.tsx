@@ -4,11 +4,21 @@ import { Footer } from "./Footer"
 import { Header } from "./Header"
 import { IContainer } from "./types"
 import { styles } from "./styles";
+import { useState } from "react"
 
 export const Container = (props: IContainer) => {
+    const [filter, setFilter] = useState<string>('');
     return(
         <SafeAreaView style={styles.container}>
-            <Header />
+            <Header 
+                default={props.headerProps.default}
+                headerPost={props.headerProps.headerPost}
+                searchBar={{
+                    value: filter,
+                    onChange: (value: string) => setFilter(value)
+                }
+                }
+            />
             <View style={styles.content}>
                 {props.children}
 
