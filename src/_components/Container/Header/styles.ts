@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
         paddingVertical: 10
     },
     icon: {
-        marginLeft: 9
+        marginHorizontal: 9
     },
     containerInputSearch: {
         flexDirection: 'row',

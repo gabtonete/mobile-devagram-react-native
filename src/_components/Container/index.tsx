@@ -5,9 +5,11 @@ import { Header } from "./Header"
 import { IContainer } from "./types"
 import { styles } from "./styles";
 import { useState } from "react"
+import { Search } from "./Header/Search"
 
 export const Container = (props: IContainer) => {
     const [filter, setFilter] = useState<string>('');
+
     return(
         <SafeAreaView style={styles.container}>
             <Header 
@@ -19,6 +21,7 @@ export const Container = (props: IContainer) => {
                 }
                 }
             />
+            <Search filter={filter}/>
             <View style={styles.content}>
                 {props.children}
 

@@ -31,3 +31,8 @@ export const getCurrentUser = async () => {
 
     return user;
 }
+
+export const search = async (filter: string) => {
+    console.log(filter)
+    return await devagramApiService.get(`/pesquisa?filtro=${filter}`);
+}
