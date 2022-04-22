@@ -5,7 +5,6 @@ const { height, width } = Dimensions.get("screen")
 
 export const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: colors.whiteColor,
         borderBottomColor: colors.grayColor01,
         borderWidth: 1

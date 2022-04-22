@@ -14,8 +14,8 @@ export const Routes = () => {
             screenOptions={{headerShown: false}}
         >
             <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Register" component={Register} />
             <Stack.Screen name="Post" component={Post} />
             <Stack.Screen name="Profile" component={Profile} />
         </Stack.Navigator>

@@ -4,7 +4,7 @@ import { colors } from '../../../app.json';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.whiteColor
+        backgroundColor: colors.whiteColor,
     },
     content: {
         flex: 1,
