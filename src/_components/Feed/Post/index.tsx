@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native"
 import { getCurrentUser } from "../../../_services/UserService";
 import { IUser } from "../../../_services/UserService/types";
+import { Comments } from "../Comments";
 import { styles } from "./styles"
 import { IPost } from "./types"
 
@@ -9,10 +10,12 @@ export const Post = (props: { post: IPost }) => {
     const [liked, setLiked] = useState<boolean>(false);
     const [commented, setCommented] = useState<boolean>(false);
     const [userLogged, setUserLogged] = useState<IUser>();
+    const [numberOfLines, setNumberOfLines] = useState<number | undefined>(2);
 
     useEffect(() => {
         verifyLiked()
-    }, [])
+    }, []);
+
     const toggleLike = async () => {
         setLiked(!liked)
     }
@@ -21,7 +24,7 @@ export const Post = (props: { post: IPost }) => {
         const user = await getCurrentUser();
         setUserLogged(user);
 
-        if(user.id) {
+        if (user.id) {
             setLiked(props.post.likes.includes(user.id))
         }
     }
@@ -64,6 +67,15 @@ export const Post = (props: { post: IPost }) => {
                 </TouchableOpacity>
                 <Text style={styles.textLike}>Curtido por <Text style={[styles.textLike, styles.textLikeBold]}>{props.post.likes.length} pessoas</Text></Text>
             </View>
+            <View style={styles.containerDescription}>
+                <Text style={styles.textDescription}>
+                    <Text style={styles.textUsername}>
+                        {props.post.user.name}
+                    </Text>
+                    {' ' + props.post.description}
+                </Text>
+            </View>
+            <Comments comments={props.post.comments}/>
         </View>
     )
 }
