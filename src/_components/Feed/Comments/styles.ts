@@ -24,5 +24,18 @@ export const styles = StyleSheet.create({
         fontFamily: "biennaleRegular",
         color: colors.grayColor04,
         marginLeft: 8,
+    },
+    containerInputComment: {
+        flexDirection: "row",
+        alignItems: "center",
+        margin: 8
+    },
+    inputComment: {
+        color: colors.grayColor02,
+        width: width / 1.7,
+        height: height/ 22,
+        paddingHorizontal: 8,
+        fontFamily: "biennaleRegular",
+        fontSize: 12
     }
 })

@@ -2,22 +2,41 @@ import { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native"
 import { getCurrentUser } from "../../../_services/UserService";
 import { IUser } from "../../../_services/UserService/types";
+import { Avatar } from "../../Avatar";
 import { Comments } from "../Comments";
-import { styles } from "./styles"
-import { IPost } from "./types"
+import { styles } from "./styles";
+import { IPost } from "./types";
+import * as feedService from "../../../_services/FeedService";
 
 export const Post = (props: { post: IPost }) => {
     const [liked, setLiked] = useState<boolean>(false);
     const [commented, setCommented] = useState<boolean>(false);
+    const [commentInputActive, setCommentInputActive] = useState<boolean>(false);
     const [userLogged, setUserLogged] = useState<IUser>();
     const [numberOfLines, setNumberOfLines] = useState<number | undefined>(2);
+    const [likesLength, setLikesLength] = useState<number>(props.post.likes.length);
 
     useEffect(() => {
         verifyLiked()
     }, []);
 
     const toggleLike = async () => {
-        setLiked(!liked)
+        setLiked(!liked);
+        try {
+            const result = await feedService.toggleLike(props.post.id);
+            console.log("result: ", result.data.msg)
+            if(result.data?.msg === "Publicacao curtida com sucesso") {
+                setLikesLength(likesLength + 1)
+            } else if (result.data.msg === "Publicacao descurtida com sucesso") {
+                setLikesLength(likesLength - 1)
+
+            } else {
+                null
+            }
+
+        } catch (e: any) {
+            return null;
+        }
     }
 
     const verifyLiked = async () => {
@@ -33,12 +52,7 @@ export const Post = (props: { post: IPost }) => {
         <View style={styles.container}>
             <View style={styles.containerUser}>
                 <TouchableOpacity style={styles.userInfo}>
-                    <Image
-                        source={props.post.user.avatar
-                            ? { uri: props.post.user.avatar }
-                            : require('../../../_assets/images/Avatar_Foto.png')}
-                        style={styles.imageUser}
-                    />
+                    <Avatar image={props.post.user.avatar}/>
                     <Text style={styles.textUsername}>{props.post.user.name}</Text>
                 </TouchableOpacity>
             </View>
@@ -57,15 +71,20 @@ export const Post = (props: { post: IPost }) => {
                             : require('../../../_assets/icons/notLiked.png')}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => setCommentInputActive(!commentInputActive)}>
                     <Image
                         style={styles.icon}
-                        source={commented
+                        source={commented || commentInputActive
                             ? require('../../../_assets/icons/commented.png')
                             : require('../../../_assets/icons/notCommented.png')}
                     />
                 </TouchableOpacity>
-                <Text style={styles.textLike}>Curtido por <Text style={[styles.textLike, styles.textLikeBold]}>{props.post.likes.length} pessoas</Text></Text>
+                <Text style={styles.textLike}>
+                    Curtido por
+                    <Text style={[styles.textLike, styles.textLikeBold]}>
+                        {' '}{likesLength} pessoas
+                    </Text>
+                </Text>
             </View>
             <View style={styles.containerDescription}>
                 <Text style={styles.textDescription}>
@@ -75,7 +94,10 @@ export const Post = (props: { post: IPost }) => {
                     {' ' + props.post.description}
                 </Text>
             </View>
-            <Comments comments={props.post.comments}/>
+            {
+                userLogged &&
+                <Comments comments={props.post.comments} commentIsActive={commentInputActive} userLogged={userLogged}/>
+            }
         </View>
     )
 }

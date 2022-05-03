@@ -4,6 +4,7 @@ import { IUserData } from "../../../../_services/UserService/types";
 import * as userService from "../../../../_services/UserService";
 import { colors } from '../../../../../app.json';
 import { styles } from './styles';
+import { Avatar } from "../../../Avatar";
 
 export const Search = (props: { filter: string }) => {
     const [users, setUsers] = useState<IUserData[]>([]);
@@ -46,10 +47,7 @@ export const Search = (props: { filter: string }) => {
         <TouchableOpacity style={user.index%2 !== 0 ? styles.backgroundOdd : styles.backgroundPair}>
             <View style={styles.row}>
                 <View>
-                    <Image 
-                        source={user.avatar? {uri: user.avatar} : require('../../../../_assets/images/Avatar_Foto.png')} 
-                        style={styles.imageUser}
-                    />
+                    <Avatar image={user.avatar}/>
                 </View>
                 <View>
                     <Text style={styles.name}>{user.name}</Text>

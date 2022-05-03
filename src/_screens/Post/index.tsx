@@ -3,7 +3,8 @@ import { Container } from '../../_components/Container';
 
 export const Post = () => {
     return(
-        <Container 
+        <Container
+            headerProps={{default: true}}
             footerProps={{currentTab: 'Post'}}
         >
             <Text>Post</Text>
